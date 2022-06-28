@@ -10,6 +10,8 @@ const getCompany = async(req:Request,res:Response)=>{
     let totalPage:any = Math.ceil(lengthData/limit)
     let getCompany = await companyModel.find({name:{$regex: textSearch,$options:'i'}}).skip(skip).limit(limit)
     .populate({path:'id_Employee',model: 'employees'})
+    console.log(getCompany,"getCompany");
+    
     let arrayTotalPage:any = []
     for(let i=1;i<=totalPage;i++){
         arrayTotalPage.push(i)
@@ -35,18 +37,18 @@ const getEmployeeByIdCompany = async(req:Request,res:Response)=>{
 const addCompany = async(req:Request,res:Response)=>{
     let {name,address,numberOfEmployees,creationDate, id_Employee} = req.body
     let addCompany = await companyModel.create({name,address,numberOfEmployees,creationDate})
-    let arrayIdEmployees =[]
-    let arrayIdCompanyOld =[]
-    for(let i =0;i<id_Employee.length;i++){
-        arrayIdEmployees.push(id_Employee[i])
-        let updateEmployee = await employeesModel.findByIdAndUpdate(id_Employee[i])
-        arrayIdCompanyOld = updateEmployee.id_CompanyOld
-        if(arrayIdCompanyOld){
-            arrayIdCompanyOld.push(updateEmployee.id_Company)
-            updateEmployee = await employeesModel.findByIdAndUpdate(id_Employee[i],{id_Company: addCompany._id,id_CompanyOld: arrayIdCompanyOld},{new:true})
-        }
-    }
-    let updateCompany = await companyModel.findByIdAndUpdate(addCompany._id,{id_Employee: arrayIdEmployees},{new:true})
+    // let arrayIdEmployees =[]
+    // let arrayIdCompanyOld =[]
+    // for(let i =0;i<id_Employee.length;i++){
+    //     arrayIdEmployees.push(id_Employee[i])
+    //     let updateEmployee = await employeesModel.findByIdAndUpdate(id_Employee[i])
+    //     arrayIdCompanyOld = updateEmployee.id_CompanyOld
+    //     if(arrayIdCompanyOld){
+    //         arrayIdCompanyOld.push(updateEmployee.id_Company)
+    //         updateEmployee = await employeesModel.findByIdAndUpdate(id_Employee[i],{id_Company: addCompany._id,id_CompanyOld: arrayIdCompanyOld},{new:true})
+    //     }
+    // }
+    // let updateCompany = await companyModel.findByIdAndUpdate(addCompany._id,{id_Employee: arrayIdEmployees},{new:true})
     return addCompany
 }
 

@@ -73,6 +73,7 @@ export class DemoComponentComponent implements OnInit {
     this.api.addCompany(data)
       .subscribe(res=>{
         this.handleGet(this.management.activePage)
+        window.location.reload()
       })
   }
   handleDelete(id:string):void{

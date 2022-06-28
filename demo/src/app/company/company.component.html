@@ -1,0 +1,316 @@
+<div>
+  <h1 class="title_top">Bảng công ty</h1>
+  <form action="/action_page.php" class="was-validated">
+    <div class="mb-3 mt-3">
+      <label for="name" class="form-label">Tên công ty:</label>
+      <input
+        [(ngModel)]="management.name"
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Enter name of company"
+        name="name"
+        required
+      />
+      <div class="valid-feedback">OKE</div>
+      <div class="invalid-feedback">Vui lòng điền thông tin</div>
+    </div>
+    <div class="mb-3">
+      <label for="pwd" class="form-label">Địa chỉ:</label>
+      <input
+        [(ngModel)]="management.address"
+        type="text"
+        class="form-control"
+        id="pwd"
+        placeholder="Enter address of company"
+        name="address"
+        required
+      />
+      <div class="valid-feedback">OKE</div>
+      <div class="invalid-feedback">Vui lòng điền thông tin</div>
+    </div>
+    <div class="mb-3">
+      <label for="pwd" class="form-label">Số lượng nhân viên:</label>
+      <input
+        [(ngModel)]="management.numberOfEmployees"
+        type="number"
+        class="form-control"
+        id="pwd"
+        placeholder="Enter numberOfEmployees of company"
+        name="numberOfEmployees"
+        required
+      />
+      <div class="valid-feedback">OKE</div>
+      <div class="invalid-feedback">Vui lòng điền thông tin</div>
+    </div>
+    <div class="mb-3">
+      <label for="pwd" class="form-label">Ngày thành lập:</label>
+      <input
+        [(ngModel)]="management.creationDate"
+        type="datetime-local"
+        class="form-control"
+        id="pwd"
+        placeholder="Enter creationDate of company"
+        name="creationDate"
+        required
+      />
+      <div class="valid-feedback">OKE.</div>
+      <div class="invalid-feedback">Vui lòng điền thông tin</div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="handleAdd()">
+      ADD
+    </button>
+
+    <div class="wrap_search">
+      <label for="pwd" class="form-label form-label_key">Từ khóa:</label>
+      <input
+        [(ngModel)]="management.textSearch"
+        type="text"
+        class="form-control_search"
+        placeholder="Enter key search"
+        name="textSearch"
+      />
+      <button type="submit" class="btn btn-primary" (click)="handleGet(1)">
+        SEARCH
+      </button>
+    </div>
+  </form>
+  <div class="container mt-3">
+    <div class="button_back">
+      <h2>Thông tin công ty</h2>
+      <button type="submit" class="btn btn-primary" (click)="handleGet(1)">
+        BACK
+      </button>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>STT</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>NumberOfEmployees</th>
+          <th>CreationDate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listCompany; let i = index">
+          <th>{{ i + 1 + skip }}</th>
+          <th>{{ item.name }}</th>
+          <th>{{ item.address }}</th>
+          <th>{{ item.numberOfEmployees }}</th>
+          <th>{{ item.creationDate }}</th>
+          <th><button (click)="handleDelete(item._id)">DELETE</button></th>
+          <th>
+            <button
+              (click)="
+                handleChoose({
+                  id: item._id,
+                  name: item.name,
+                  address: item.address,
+                  numberOfEmployees: item.numberOfEmployees,
+                  creationDate: item.creationDate
+                })
+              "
+              class="btn btn-primary"
+              data-bs-toggle="modal"
+              data-bs-target="#myModal"
+            >
+              SELECT
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="modal" id="myModal">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Cập nhập thông tin công ty</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            (click)="handleReset({})"
+          ></button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="mb-3 mt-3">
+            <label for="name" class="form-label">Tên công ty:</label>
+            <input
+              [(ngModel)]="management.name"
+              type="text"
+              class="form-control"
+              id="name"
+              placeholder="Enter name of company"
+              name="name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="pwd" class="form-label">Địa chỉ:</label>
+            <input
+              [(ngModel)]="management.address"
+              type="text"
+              class="form-control"
+              id="pwd"
+              placeholder="Enter address of company"
+              name="address"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="pwd" class="form-label">Số lượng nhân viên:</label>
+            <input
+              [(ngModel)]="management.numberOfEmployees"
+              type="number"
+              class="form-control"
+              id="pwd"
+              placeholder="Enter numberOfEmployees of company"
+              name="numberOfEmployees"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="pwd" class="form-label">Ngày thành lập:</label>
+            <input
+              [(ngModel)]="management.creationDate"
+              type="datetime-local"
+              class="form-control"
+              id="pwd"
+              placeholder="Enter creationDate of company"
+              name="creationDate"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="handleUpdate()"
+          >
+            UPDATE
+          </button>
+          <!-- Danh sach nhan vien chua lam tai cong ty nao -->
+          <button
+          (click)="getAllEmployeeNotCompany()"
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal_2"
+          >
+            Employees
+          </button>
+          
+          <!-- data employesss -->
+          <div class="container mt-3">
+            <h2>Thông tin nhân viên</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Stt</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listEmployees; let i = index">
+                  <th>{{ i + 1 }}</th>
+                  <th>{{ item.nameEmployee }}</th>
+                  <th>{{ item.age }}</th>
+                  <th><button (click)="handleDeleteEmployeeInCompany(item._id)">DELETE</button></th>
+                </tr>
+                <!-- <h1 *ngIf="!listEmployees" class="msg_error">Chưa có nhân viên nào trong công ty!!!</h1> -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+            (click)="handleReset({})"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container container_pagination mt-3">
+    <ul class="pagination" *ngFor="let item of totalPage">
+      <li class="page-item" (click)="handleGet(item)">
+        <a class="page-link">{{ item }}</a>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal_2">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Bảng nhân viên</h4>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+          ></button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          <div class="container mt-3">
+            <h2>Thông tin nhân viên chưa làm công ty nào!</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Stt</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of listEmployeesNotCompany; let i = index">
+                  <th>{{ i + 1 }}</th>
+                  <th>{{ item.nameEmployee }}</th>
+                  <th>{{ item.age }}</th>
+                  <th>
+                    <div class="form-check form-check-inline" >
+                      <input  class="form-check-input" type="checkbox" id="inlineCheckbox1" (click)="handleSetIdEmployee(item._id)">
+                    </div>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            (click)="handleAddEmployeeNotCompany()"
+          >
+            ADD
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

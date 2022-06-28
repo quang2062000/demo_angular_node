@@ -1,0 +1,47 @@
+
+.button_pagi_true{
+    background-color: red;
+}
+.button_pagi{
+    background-color: white;
+}
+.container_pagination{
+    display: flex;
+}
+.was-validated{
+    width: 50%;
+    margin: 0 auto;
+}
+.btn{
+    margin-left: 30px;
+}
+.btn-primary{
+    margin-left: 10px;
+}
+.form-control_search{
+    width: 40%;
+}
+.was-validated{
+    position: relative;
+}
+.wrap_search{
+    display: flex;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+.form-label_key{
+   margin: 10px;
+}
+.title_top{
+    display: flex;
+    justify-content: center;
+    margin-top:20px ;
+}
+.button_back{
+    display: flex;
+    justify-content: space-between;
+}
+.msg_error{
+    display: block;
+}

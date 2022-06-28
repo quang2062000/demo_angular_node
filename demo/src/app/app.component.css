@@ -1,0 +1,19 @@
+.options{
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+    background-color: aqua;
+}
+.options li{
+    list-style: none;
+    padding:0 30px;
+
+    
+}
+.options li:hover{
+    background-color: white;
+}
+.options li a{
+    text-decoration: none;
+    color: black;
+}

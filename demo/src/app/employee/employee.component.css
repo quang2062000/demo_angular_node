@@ -1,0 +1,18 @@
+.was-validated{
+    width: 50%;
+    margin: 0 auto;
+}
+.container_pagination{
+    display: flex;
+}
+.companyed{
+    padding-top: 50px;
+}
+.companying{
+    padding-top: 50px;
+}
+.title{
+    display: flex;
+    justify-content: center;
+    margin-top:20px ;
+}

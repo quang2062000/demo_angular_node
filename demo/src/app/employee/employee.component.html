@@ -1,0 +1,185 @@
+<h1 class="title_top title">Bảng nhân viên</h1>
+<form action="/action_page.php" class="was-validated form_employee">
+  <div class="mb-3 mt-3">
+    <label for="name" class="form-label">Tên nhân viên:</label>
+    <input
+      [(ngModel)]="management.nameEmployee"
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="Enter name of company"
+      name="name"
+      required
+    />
+    <div class="valid-feedback">OKE</div>
+    <div class="invalid-feedback">Vui lòng điền thông tin</div>
+  </div>
+  <div class="mb-3">
+    <label for="pwd" class="form-label">Tuổi:</label>
+    <input
+      [(ngModel)]="management.age"
+      type="number"
+      class="form-control"
+      id="pwd"
+      placeholder="Enter address of company"
+      name="age"
+      required
+    />
+    <div class="valid-feedback">OKE</div>
+    <div class="invalid-feedback">Vui lòng điền thông tin</div>
+  </div>
+  <!-- <div >
+          <label for="">Options company : 
+          </label>
+          <select  id="company" name="company" class="width-100p form-control" [(ngModel)]="idCompany">
+            <option style="overflow-y:auto ;height: 50px;" *ngFor="let company of listCompany" [value]="company._id">
+              {{company.name}}</option>
+          </select>
+        </div> -->
+  <button type="submit" class="btn btn-primary" (click)="handleAdd()">
+    ADD
+  </button>
+</form>
+<div class="container mt-3">
+  <h2>Thông tin nhân viên</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Stt</th>
+        <th>Name</th>
+        <th>Age</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listEmployees; let i = index">
+        <th>{{ i + 1 + skip }}</th>
+        <th>{{ item.nameEmployee }}</th>
+        <th>{{ item.age }}</th>
+        <th>
+          <button (click)="handleDeleteEmployee(item._id)">DELETE</button>
+        </th>
+        <th>
+          <button
+          (click)="handleChooseData({
+            id:item._id,
+            nameEmployee: item.nameEmployee,
+            age:item.age
+          })"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#myModal"
+          >
+            SELECT
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container container_pagination mt-3">
+  <ul class="pagination" *ngFor="let totalPage of totalPage">
+    <li class="page-item" (click)="handleGetEmployee(totalPage)">
+      <a class="page-link">{{ totalPage }}</a>
+    </li>
+  </ul>
+</div>
+
+<!-- thong tin cong ty ma nhan do dang lam va da lam -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Cập nhập thông tin nhân viên</h4>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="mb-3 mt-3">
+          <label for="name" class="form-label">Tên nhân viên:</label>
+          <input
+            [(ngModel)]="management.nameEmployee"
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="Enter name of company"
+            name="nameEmployee"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="pwd" class="form-label">Tuổi:</label>
+          <input
+            [(ngModel)]="management.age"
+            type="text"
+            class="form-control"
+            id="pwd"
+            placeholder="Enter address of company"
+            name="age"
+            required
+          />
+        </div>
+        <button (click)="handleUpdateEmployee()" type="submit" class="btn btn-primary">
+          UPDATE
+        </button>
+        <!-- data employesss -->
+        <div class="container mt-3 companying">
+          <h2>Thông tin công ty đang làm</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>NumberOfEmployees</th>
+                <th>CreationDate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of companying; let i = index">
+                <th>{{item?.name}}</th>
+                <th>{{item?.address}}</th>
+                <th>{{item?.numberOfEmployees}}</th>
+                <th>{{item?.creationDate}}</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="container mt-3 companyed">
+          <h2>Thông tin công ty đã làm</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>NumberOfEmployees</th>
+                <th>CreationDate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of companyed; let i = index">
+                <th>{{i+1}}</th>
+                <th>{{item?.name}}</th>
+                <th>{{item?.address}}</th>
+                <th>{{item?.numberOfEmployees}}</th>
+                <th>{{item?.creationDate}}</th>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

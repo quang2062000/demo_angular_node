@@ -110,8 +110,6 @@ const updateEmployees = async(req:Request,res:Response)=>{
     let {nameEmployee,age,id_Company,id_CompanyOld} = req.body
     console.log(req.body,"bodyy");
     console.log(req.params,"id truyen sang");
-    
-    
     let updateEmployee = await employeesModel.findByIdAndUpdate(id,{nameEmployee:nameEmployee,age:age},{new:true})
         // let dataEmployee = await employeesModel.findById(idEmployee)
         // let dataCompany = await companyModel.findById(id_Company)

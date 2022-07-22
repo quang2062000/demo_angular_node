@@ -1,5 +1,6 @@
 import express from 'express'
 import controllerCompany from '../controllers/companyController'
+import userController from '../controllers/userController';
 import controllerEmployees from '../controllers/employeesController'
 const apiRouter:express.Router = express.Router();
 
@@ -47,5 +48,13 @@ apiRouter.get('/getCompanying/:id',controllerEmployees.getCompanying)
 
 //get companyed
 apiRouter.get('/getCompanyed/:id',controllerEmployees.getCompanyed)
+
+
+
+////// authen registration
+apiRouter.post('/registration',userController.registration)
+
+// login
+apiRouter.post('/login',userController.login)
 export default apiRouter
 

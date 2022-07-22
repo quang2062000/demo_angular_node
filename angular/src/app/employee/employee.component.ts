@@ -32,6 +32,8 @@ export class EmployeeComponent implements OnInit {
 
   companying:any
   companyed:any
+
+  token:any
   AddCompany(IdCompany :string):void{
     if(!IdCompany){return;}
     this.companySelect = IdCompany;
@@ -41,6 +43,7 @@ export class EmployeeComponent implements OnInit {
   constructor(private api: DemoService) { }
 
   ngOnInit(): void {
+    this.token = localStorage.getItem("token")
     this.handleGetEmployee(this.management.activePage);
   }
   handleGetEmployee(activePage:number):void{

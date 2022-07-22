@@ -39,12 +39,13 @@ export class DemoComponentComponent implements OnInit {
   listEmployees !: any
   listEmployeesNotCompany :any
   idEmployeeNotCompany: any
+  token:any
   
   constructor(private api:DemoService) { }
 
   ngOnInit(): void {
+    this.token = localStorage.getItem("token")
     this.handleGet(this.management.activePage)
-    
   }
   handleGet(activePage:number) :void{
     let data = {

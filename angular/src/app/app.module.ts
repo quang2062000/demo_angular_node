@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { DemoComponentComponent } from './company/company.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AuthenComponent } from './authen/authen.component';
 @NgModule({
   declarations: [
     AppComponent,
     DemoComponentComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    AuthenComponent
   ],
   imports: [
     BrowserModule,

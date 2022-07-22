@@ -107,4 +107,23 @@ export class DemoService {
       return res
     }))
   }
+
+  /////
+  registration(data:any){
+    return this.http.post<any>('http://localhost:3001/api/registration',data)
+    .pipe(map((res:any)=>{
+      console.log(res.message,"dl tra ve");
+      
+      return {message:res.message,status:res.status,data:res.data}
+    }))
+  }
+  login(data:any){
+    return this.http.post<any>('http://localhost:3001/api/login',data)
+    .pipe(map((res:any)=>{
+      console.log(res,"Data tra vse");
+      localStorage.setItem("token",res.token)
+        localStorage.setItem("role",res.role)
+      return {message:res.message,status:res.status,token:res.token,role:res.role}
+    }))
+  }
 }
